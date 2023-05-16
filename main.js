@@ -12,7 +12,7 @@ Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.*/
 
 // VARIABILI GLOBALI 
 const elContainer = document.getElementById("container");
-
+const myLikes = document.querySelector(".like-button")
 
 // Creiamo il nostro array di oggetti che rappresentano ciascun post. Ogni post dovrà avere le informazioni necessarie per stampare la relativa card
 const posts = [
@@ -73,26 +73,31 @@ const posts = [
     }
 ];
 
+
 // Prendendo come riferimento il layout di esempio presente nell’html, stampiamo i post del nostro feed.
 for (let i = 0; i < posts.length; i++) {
     const post = posts[i];
-    console.log(post);
+    const { author } = post;
+    const {name, image} = post.author
+    console.log(name,image);
+    const {id, content, media , likes, created} = post
+    console.log(id, content, media , author, likes, created);
 
     elContainer.innerHTML += ` <div class="post">
     <div class="post__header">
         <div class="post-meta">                    
             <div class="post-meta__icon">
-                <img class="profile-pic" src="https://unsplash.it/300/300?image=15" alt="Phil Mangione">                    
+                <img class="profile-pic" src=${image} alt=${name}>                    
             </div>
             <div class="post-meta__data">
-                <div class="post-meta__author">Phil Mangione</div>
+                <div class="post-meta__author">${name}</div>
                 <div class="post-meta__time">4 mesi fa</div>
             </div>                    
         </div>
     </div>
-    <div class="post__text">Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.</div>
+    <div class="post__text">${content}</div>
     <div class="post__image">
-        <img src="https://unsplash.it/600/300?image=171" alt="">
+        <img src=${media} alt="">
     </div>
     <div class="post__footer">
         <div class="likes js-likes">
@@ -103,9 +108,26 @@ for (let i = 0; i < posts.length; i++) {
                 </a>
             </div>
             <div class="likes__counter">
-                Piace a <b id="like-counter-1" class="js-likes-counter">80</b> persone
+                Piace a <b id="like-counter-1" class="js-likes-counter">${likes}</b> persone
             </div>
         </div> 
     </div>            
 </div>`
 }
+
+
+// Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
+
+const likesPlus = posts.likes
+console.log(likesPlus);
+myLikes.addEventListener('click',likesUp)
+     
+  
+function likesUp() { 
+          
+      
+    if () {
+      
+    }
+   
+};
