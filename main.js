@@ -12,7 +12,7 @@ Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.*/
 
 // VARIABILI GLOBALI 
 const elContainer = document.getElementById("container");
-const myLikes = document.querySelector(".like-button")
+
 
 // Creiamo il nostro array di oggetti che rappresentano ciascun post. Ogni post dovrà avere le informazioni necessarie per stampare la relativa card
 const posts = [
@@ -79,9 +79,9 @@ for (let i = 0; i < posts.length; i++) {
     const post = posts[i];
     const { author } = post;
     const {name, image} = post.author
-    console.log(name,image);
+    // console.log(name,image);
     const {id, content, media , likes, created} = post
-    console.log(id, content, media , author, likes, created);
+    // console.log(id, content, media , author, likes, created);
 
     elContainer.innerHTML += ` <div class="post">
     <div class="post__header">
@@ -91,7 +91,7 @@ for (let i = 0; i < posts.length; i++) {
             </div>
             <div class="post-meta__data">
                 <div class="post-meta__author">${name}</div>
-                <div class="post-meta__time">4 mesi fa</div>
+                <div class="post-meta__time">${created}</div>
             </div>                    
         </div>
     </div>
@@ -108,26 +108,24 @@ for (let i = 0; i < posts.length; i++) {
                 </a>
             </div>
             <div class="likes__counter">
-                Piace a <b id="like-counter-1" class="js-likes-counter">${likes}</b> persone
+                Piace a <b id="like-counter-${id}" class="js-likes-counter">${likes}</b> persone
             </div>
         </div> 
     </div>            
 </div>`
+
 }
 
 
 // Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
+const buttonLikes =document.querySelector(".js-like-button")
 
-const likesPlus = posts.likes
-console.log(likesPlus);
-myLikes.addEventListener('click',likesUp)
+buttonLikes.addEventListener('click',likesUp)
      
-  
 function likesUp() { 
-          
-      
-    if () {
-      
+  let postId = document.getElementById("like-counter-${id}")
+    console.log(postId);
+    if (postId) {
+        buttonLikes.classList.add('like-button--liked');
     }
-   
 };
