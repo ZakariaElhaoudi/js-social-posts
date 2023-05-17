@@ -118,14 +118,37 @@ for (let i = 0; i < posts.length; i++) {
 
 
 // Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
-const buttonLikes =document.querySelector(".js-like-button")
+const buttonLikes = document.querySelectorAll(".js-like-button")
 
-buttonLikes.addEventListener('click',likesUp)
+buttonLikes.forEach((element, index) => {
+    // console.log(element, index);
+    element.addEventListener('click', function() { likesUp(element, index)})
+});
+
      
-function likesUp() { 
-  let postId = document.getElementById("like-counter-${id}")
-    console.log(postId);
-    if (postId) {
-        buttonLikes.classList.add('like-button--liked');
+function likesUp(element, index) { 
+    //incrementare contatore array
+    posts[index].likes++
+    //modificare stile bottone like
+    element.classList.add('like-button--liked');
+    // console.log(element);
+    //incrementare contatore like dom
+    const postId = posts[index].id;
+    const likeCounter = document.getElementById("like-counter-${id}")
+    if (likeCounter) {
+        linkPlus.innerHTML += posts[index].likes;
+        console.log(linkPlus); 
+        console.log(posts[index]);
     }
+
+    console.log(likeCounter);
+   
+    // const idPost 
+    // posts[]
+    // document.getElementById("like-counter-${id}")
+   
+    // if (postId) {
+    //     buttonLikes.classList.add('like-button--liked');
+    // }
 };
+
