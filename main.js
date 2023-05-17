@@ -87,7 +87,7 @@ for (let i = 0; i < posts.length; i++) {
     <div class="post__header">
         <div class="post-meta">                    
             <div class="post-meta__icon">
-                <img class="profile-pic" src=${image} alt=${name}>                    
+                <img class="profile-pic" src=${image} alt="${name}">                    
             </div>
             <div class="post-meta__data">
                 <div class="post-meta__author">${name}</div>
@@ -97,7 +97,7 @@ for (let i = 0; i < posts.length; i++) {
     </div>
     <div class="post__text">${content}</div>
     <div class="post__image">
-        <img src=${media} alt="">
+        <img src=${media} alt="${name}">
     </div>
     <div class="post__footer">
         <div class="likes js-likes">
@@ -119,36 +119,42 @@ for (let i = 0; i < posts.length; i++) {
 
 // Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
 const buttonLikes = document.querySelectorAll(".js-like-button")
-
+const likeCounter = document.querySelectorAll(".js-likes-counter")
 buttonLikes.forEach((element, index) => {
-    // console.log(element, index);
-    element.addEventListener('click', function() { likesUp(element, index)})
+    element.addEventListener('click', function() { likesUp(element, index,event)})
 });
 
-     
-function likesUp(element, index) { 
+const listLikes = []
+
+function likesUp(element, index,event) { 
+    event.preventDefault()
+
     //incrementare contatore array
-    posts[index].likes++
+    let contatoreIesimo = likeCounter[index];
+    console.log(contatoreIesimo);
+    let valoreContatore = parseInt(contatoreIesimo.innerHTML)
+
     //modificare stile bottone like
+    // element.classList.add('like-button--liked');
+   
+    
+    // Al click su un pulsante “Mi Piace” di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
+    if (element.classList.contains('like-button--liked')) {
+        element.classList.remove('like-button--liked');
+        valoreContatore--
+    } else {
     element.classList.add('like-button--liked');
-    // console.log(element);
-    //incrementare contatore like dom
-    const postId = posts[index].id;
-    const likeCounter = document.getElementById("like-counter-${id}")
-    if (likeCounter) {
-        linkPlus.innerHTML += posts[index].likes;
-        console.log(linkPlus); 
-        console.log(posts[index]);
+        valoreContatore++
     }
 
-    console.log(likeCounter);
-   
-    // const idPost 
-    // posts[]
-    // document.getElementById("like-counter-${id}")
-   
-    // if (postId) {
-    //     buttonLikes.classList.add('like-button--liked');
-    // }
+    // Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
+    if (listLikes[index]) {
+        listLikes[index] = posts[index].id
+    } else {
+        listLikes.push(posts[index].id)
+    }
+    //incrementare contatore like dom
+    contatoreIesimo.innerHTML = valoreContatore;
+    console.log(listLikes);
 };
 
